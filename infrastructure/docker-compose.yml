@@ -3,11 +3,14 @@ version: "3.1"
 volumes:
   traefik-ssl-certs:
     driver: local
+  portainer_data:
 
 services:
   reverse-proxy:
     image: traefik:v3.0
-    command: --api.insecure=true --providers.docker
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
     restart: unless-stopped
     ports:
       - "80:80" # HTTP
@@ -17,3 +20,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
       - ./traefik/config:/etc/traefik # Traefik configuration file
       - traefik-ssl-certs:/ssl-certs # SSL certificates
+
+  portainer:
+    image: portainer/portainer-ce
+    restart: unless-stopped
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
