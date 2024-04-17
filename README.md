@@ -1,3 +1,3 @@
-# 💻 Home Server
+# 💻 Nexus
 
 My home server infrastructure
