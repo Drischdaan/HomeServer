@@ -24,9 +24,14 @@ services:
   portainer:
     image: portainer/portainer-ce
     restart: unless-stopped
-    ports:
-      - "9443:9443"
-      - "8000:8000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+    labels:
+      traefik.enable: "true"
+      traefik.http.services.portainer-demo-1.loadbalancer.server.port: "9000"
+      traefik.http.services.portainer-demo-1.loadbalancer.server.scheme: "http"
+      traefik.http.routers.portainer-demo-1-https.entrypoints: "websecure"
+      traefik.http.routers.portainer-demo-1-https.rule: "Host(`portainer.nexus.dev`)"
+      traefik.http.routers.portainer-demo-1-https.tls: "true"
+      traefik.http.routers.portainer-demo-1-https.tls.certresolver: "production"

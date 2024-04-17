@@ -9,21 +9,19 @@ api:
 entryPoints:
   web:
     address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
     address: :443
 
 certificatesResolvers:
-  staging:
-    acme:
-      email: drischdaan@gmail.com
-      storage: /ssl-certs/acme.json
-      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-      httpChallenge:
-        entryPoint: web
   production:
     acme:
       email: drischdaan@gmail.com
-      storage: /ssl-certs/acme.json
+      storage: /etc/traefik/certs/acme.json
       caServer: https://acme-v02.api.letsencrypt.org/directory
       httpChallenge:
         entryPoint: web
