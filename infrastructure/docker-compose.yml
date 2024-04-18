@@ -29,9 +29,9 @@ services:
       - portainer_data:/data
     labels:
       traefik.enable: "true"
-      traefik.http.services.portainer-demo-1.loadbalancer.server.port: "9000"
-      traefik.http.services.portainer-demo-1.loadbalancer.server.scheme: "http"
-      traefik.http.routers.portainer-demo-1-https.entrypoints: "websecure"
-      traefik.http.routers.portainer-demo-1-https.rule: "Host(`portainer.nexus.dev`)"
-      traefik.http.routers.portainer-demo-1-https.tls: "true"
-      traefik.http.routers.portainer-demo-1-https.tls.certresolver: "production"
+      traefik.http.services.portainer.loadbalancer.server.port: "9000"
+      traefik.http.services.portainer.loadbalancer.server.scheme: "http"
+      traefik.http.routers.portainer-https.entrypoints: "websecure"
+      traefik.http.routers.portainer-https.rule: "Host(`portainer.raspberrypi.local`)"
+      traefik.http.routers.portainer-https.tls: "true"
+      traefik.http.routers.portainer-https.tls.certresolver: "production"
